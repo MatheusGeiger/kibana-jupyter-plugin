@@ -1,0 +1,47 @@
+version: "3"
+volumes:
+  esdata01:
+    driver: local
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.6
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+      # - xpack.security.enabled=true
+      # - xpack.security.audit.enabled=true
+      # - xpack.security.authc.api_key.enabled=true
+      # - ELASTICSEARCH_USERNAME=elastic
+      # - ELASTIC_PASSWORD=somethingsecret
+    volumes:
+      - ./elasticsearch/esdata01:/usr/share/elasticsearch/data
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.6
+    container_name: kibana
+    restart: unless-stopped
+    ports:
+      - "5601:5601"
+    environment:
+      - SERVER_NAME=kibana.local
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      # - ELASTICSEARCH_USERNAME=elastic
+      # - ELASTICSEARCH_PASSWORD=somethingsecret
+    volumes:
+      - ./kibana/config/plugins/kibana_jupyter:/usr/share/kibana/plugins/kibana_jupyter
+    depends_on:
+      - elasticsearch
+  jupyter_lab:
+    image: jupyter/minimal-notebook
+    container_name: jupyter_lab
+    ports: 
+      - "8888:8888"
+    environment: 
+      - JUPYTER_ENABLE_LAB=yes
+    volumes: 
+      - ./work:/home/jovyan/work
+      - .jupyter:/home/jovyan/.jupyter

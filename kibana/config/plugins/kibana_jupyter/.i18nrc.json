@@ -1,0 +1,7 @@
+{
+  "prefix": "kibanaJupyter",
+  "paths": {
+    "kibanaJupyter": "."
+  },
+  "translations": ["translations/ja-JP.json"]
+}

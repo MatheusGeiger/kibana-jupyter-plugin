@@ -1,0 +1,14 @@
+{
+    "id": "kibanaJupyter",
+    "version": "1.0.0",
+    "kibanaVersion": "kibana",
+    "owner": {
+        "name": "Kibana Jupyter",
+        "githubTeam": "juntossomosmais"
+    },
+    "description": "teste",
+    "server": false,
+    "ui": true,
+    "requiredPlugins": ["navigation"],
+    "optionalPlugins": []
+}
