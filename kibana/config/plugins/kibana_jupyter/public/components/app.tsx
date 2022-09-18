@@ -126,7 +126,7 @@ export const KibanaJupyterApp = ({
                     :
                   <FormattedMessage
                       id="kibanaJupyter.congratulationsTitle"
-                      defaultMessage="First step > configure a url do Jupyter"
+                      defaultMessage="First step configure Jupyter url"
                     />
                     }
                 </EuiPageContentBody>
